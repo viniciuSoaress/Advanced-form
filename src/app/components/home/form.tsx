@@ -1,33 +1,23 @@
 'use client'
 
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/app/components/ui/form'
 import { Button } from '@/app/components/ui/button'
 import { Input } from '@/app/components/ui/input'
-import { UserIcon } from 'lucide-react'
+import { FormProps } from './FormUser'
+import { UseFormReturn } from 'react-hook-form'
 
-const FormSchema = z.object({
-  username: z.string().min(2, { message: 'Username must be a least 2 characters.' }),
-  email: z.string().email(),
-})
+type FormHomeProps = {
+  form: UseFormReturn<{
+    username: string;
+    email: string;
+  }>,
+  onSubmit: (data: FormProps) => void
+}
 
-type From = z.infer<typeof FormSchema>
+export function FormHome({ form, onSubmit }: FormHomeProps) {
 
 
-
-export function FormHome() {
-
-  const form = useForm<From>({
-    resolver: zodResolver(FormSchema),
-    mode: 'all'
-  })
-
-  function onSubmit(data: From) {
-    console.log(data)
-  }
 
   return (
     <Form {...form}>
@@ -38,16 +28,16 @@ export function FormHome() {
           name='username'
           render={({ field }) => (
             <FormItem>
-              <FormLabel id='name'> UserName </FormLabel>
+              <FormLabel id='name'>Nome de Usuario</FormLabel>
 
               <FormControl>
-                  <Input form='name' placeholder='username' {...field} />
-               
+                <Input form='name' placeholder='username' {...field} />
               </FormControl>
 
               <FormDescription>
                 Entre com seu nome.
               </FormDescription>
+
               <FormMessage className='text-sm' />
             </FormItem>
           )}
@@ -58,7 +48,7 @@ export function FormHome() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>E-mail</FormLabel>
 
               <FormControl>
                 <Input placeholder='Email' {...field} />
@@ -67,12 +57,13 @@ export function FormHome() {
               <FormDescription>
                 Entre com seu nome.
               </FormDescription>
+
               <FormMessage className='text-sm' />
             </FormItem>
           )}
         />
 
-        <Button type='submit' className='w-full'>Submit</Button>
+        <Button type='submit' className='w-full mt-4'>Submit</Button>
 
       </form>
     </Form>

@@ -1,12 +1,12 @@
 
 import { Main } from "./components/Main";
-import { FormHome } from "./components/home/form";
+import { FormUser } from "./components/home/FormUser";
 
 export default function Home() {
   return (
     <Main>
-      <h1 className="text-lg">Exemplo de Fromulario</h1>
-      <FormHome />
+      <h1 className="text-lg">Fromulario Avançado</h1>
+      < FormUser/>
     </Main>
   )
 }
